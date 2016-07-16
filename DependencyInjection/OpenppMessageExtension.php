@@ -1,5 +1,5 @@
 <?php
-namespace Openpp\MessageBundle;
+namespace Openpp\MessageBundle\DependencyInjection;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,16 +23,69 @@ class OpenppMessageExtension extends Extension
     {
         $collector = DoctrineCollector::getInstance();
 
-        // One-To-Many Bidirectional for Application and User
-        $collector->addAssociation($config['class']['message'], 'mapOneToMany', array(
-            'fieldName'     => 'users',
+        // Many-To-One Bidirectional for Message and Thread
+        $collector->addAssociation($config['class']['message'], 'mapManyToOne', array(
+            'fieldName'     => 'thread',
+            'targetEntity'  => $config['class']['thread'],
+            'inversedBy' => 'messages',
+        ));
+        // Many-To-One Unidirectional for Message and User
+        $collector->addAssociation($config['class']['message'], 'mapManyToOne', array(
+            'fieldName'     => 'sender',
             'targetEntity'  => $config['class']['user'],
-            'cascade'       => array(
-                'remove',
-                'persist',
+        ));
+        // One-To-Many Bidirectional for Message and MessageMetadata
+        $collector->addAssociation($config['class']['message'], 'mapOneToMany', array(
+            'fieldName' => 'metadata',
+            'targetEntity' => $config['class']['message_metadata'],
+            'cascade' => array(
+                'all',
             ),
-            'mappedBy'      => 'application',
-            'orphanRemoval' => false,
+            'mappedBy' => 'message',
+        ));
+        // Many-To-One Bidirectional for MessageMetaData and Message
+        $collector->addAssociation($config['class']['message_metadata'], 'mapManyToOne', array(
+            'fieldName'     => 'message',
+            'targetEntity'  => $config['class']['message'],
+            'inversedBy' => 'metadata',
+        ));
+        // Many-To-One Unidirectional for MessageMetaData and User
+        $collector->addAssociation($config['class']['message_metadata'], 'mapManyToOne', array(
+            'fieldName'     => 'participant',
+            'targetEntity'  => $config['class']['user'],
+        ));
+
+        // Many-To-One Unidirectional for Thread and User
+        $collector->addAssociation($config['class']['thread'], 'mapManyToOne', array(
+            'fieldName'     => 'createdBy',
+            'targetEntity'  => $config['class']['user'],
+        ));
+
+        // One-To-Many Unidirectional for Thread and Message
+        $collector->addAssociation($config['class']['thread'], 'mapOneToMany', array(
+            'fieldName' => 'messages',
+            'targetEntity' => $config['class']['message'],
+            'mappedBy' => 'thread',
+        ));
+        // One-To-Many Unidirectional for Thread and ThreadMetadata
+        $collector->addAssociation($config['class']['thread'], 'mapOneToMany', array(
+            'fieldName' => 'metadata',
+            'targetEntity' => $config['class']['thread_metadata'],
+            'cascade'       => array(
+                'all',
+            ),
+            'mappedBy' => 'thread',
+        ));
+        // One-To-Many Unidirectional for ThreadMetadata and Thread
+        $collector->addAssociation($config['class']['thread_metadata'], 'mapManyToOne', array(
+            'fieldName' => 'thread',
+            'targetEntity' => $config['class']['thread'],
+            'inversedBy' => 'metadata',
+        ));
+        // One-To-Many Unidirectional for ThreadMetadata and User
+        $collector->addAssociation($config['class']['thread_metadata'], 'mapManyToOne', array(
+            'fieldName' => 'participant',
+            'targetEntity' => $config['class']['user'],
         ));
     }
 }

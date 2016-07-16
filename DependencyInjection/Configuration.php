@@ -1,5 +1,5 @@
 <?php
-namespace Openpp\MessageBundle;
+namespace Openpp\MessageBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
 
         $node
             ->children()
-                ->booleanNode('use_monitoring')
+                ->booleanNode('monitoring_default')
                     ->defaultValue(true)
                 ->end()
                 ->scalarNode('db_driver')
@@ -32,25 +32,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('message_metadata')->cannotBeEmpty()->end()
                         ->scalarNode('thread')->cannotBeEmpty()->end()
                         ->scalarNode('thread_metadata')->cannotBeEmpty()->end()
-                    ->end()
-                ->end()
-                ->arrayNode('admin')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('message')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('class')->cannotBeEmpty()->end()
-                                ->scalarNode('controller')->cannotBeEmpty()->defaultValue('SonataAdminBundle:CRUD')->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('thread')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('class')->cannotBeEmpty()->end()
-                                ->scalarNode('controller')->cannotBeEmpty()->defaultValue('SonataAdminBundle:CRUD')->end()
-                            ->end()
-                        ->end()
                     ->end()
                 ->end()
             ->end()
