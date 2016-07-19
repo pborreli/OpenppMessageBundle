@@ -3,17 +3,32 @@ namespace Openpp\MessageBundle\DependencyInjection;
 
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use FOS\MessageBundle\DependencyInjection\Configuration as FOSMessageConfiguration;
 
-class OpenppMessageExtension extends Extension
+class OpenppMessageExtension extends Extension implements PrependExtensionInterface
 {
+    /**
+     * @var array
+     */
+    private $config = null;
+
+    public function prepend(ContainerBuilder $container)
+    {
+        $configs = $container->getExtensionConfig('fos_message');
+        $this->config = $this->processConfiguration(new FOSMessageConfiguration(), $configs);
+    }
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $parameterBag = $container->getParameterBag();
+        $configs = $parameterBag->resolveValue($configs);
+        $configs_openpp = $this->processConfiguration(new Configuration(), $configs);
 
-        $this->registerDoctrineMapping($config);
+        $this->config['message_metadata_class'] = sprintf('%s%s', $this->config['message_class'], 'Metadata');
+        $this->config['thread_metadata_class'] = sprintf('%s%s', $this->config['thread_class'], 'Metadata');
+        $this->registerDoctrineMapping(array_merge($this->config, $configs_openpp));
     }
 
     /**
@@ -24,68 +39,69 @@ class OpenppMessageExtension extends Extension
         $collector = DoctrineCollector::getInstance();
 
         // Many-To-One Bidirectional for Message and Thread
-        $collector->addAssociation($config['class']['message'], 'mapManyToOne', array(
+        $collector->addAssociation($config['message_class'], 'mapManyToOne', array(
             'fieldName'     => 'thread',
-            'targetEntity'  => $config['class']['thread'],
+            'targetEntity'  => $config['thread_class'],
             'inversedBy' => 'messages',
         ));
         // Many-To-One Unidirectional for Message and User
-        $collector->addAssociation($config['class']['message'], 'mapManyToOne', array(
+        $collector->addAssociation($config['message_class'], 'mapManyToOne', array(
             'fieldName'     => 'sender',
-            'targetEntity'  => $config['class']['user'],
+            'targetEntity'  => $config['user_class'],
         ));
         // One-To-Many Bidirectional for Message and MessageMetadata
-        $collector->addAssociation($config['class']['message'], 'mapOneToMany', array(
+        $collector->addAssociation($config['message_class'], 'mapOneToMany', array(
             'fieldName' => 'metadata',
-            'targetEntity' => $config['class']['message_metadata'],
+            'targetEntity' => $config['message_metadata_class'],
             'cascade' => array(
                 'all',
             ),
             'mappedBy' => 'message',
         ));
         // Many-To-One Bidirectional for MessageMetaData and Message
-        $collector->addAssociation($config['class']['message_metadata'], 'mapManyToOne', array(
+        $collector->addAssociation($config['message_metadata_class'], 'mapManyToOne', array(
             'fieldName'     => 'message',
-            'targetEntity'  => $config['class']['message'],
+            'targetEntity'  => $config['message_class'],
             'inversedBy' => 'metadata',
         ));
         // Many-To-One Unidirectional for MessageMetaData and User
-        $collector->addAssociation($config['class']['message_metadata'], 'mapManyToOne', array(
+        $collector->addAssociation($config['message_metadata_class'], 'mapManyToOne', array(
             'fieldName'     => 'participant',
-            'targetEntity'  => $config['class']['user'],
+            'targetEntity'  => $config['user_class'],
         ));
 
         // Many-To-One Unidirectional for Thread and User
-        $collector->addAssociation($config['class']['thread'], 'mapManyToOne', array(
+        $collector->addAssociation($config['thread_class'], 'mapManyToOne', array(
             'fieldName'     => 'createdBy',
-            'targetEntity'  => $config['class']['user'],
+            'targetEntity'  => $config['user_class'],
         ));
 
         // One-To-Many Unidirectional for Thread and Message
-        $collector->addAssociation($config['class']['thread'], 'mapOneToMany', array(
+        $collector->addAssociation($config['thread_class'], 'mapOneToMany', array(
             'fieldName' => 'messages',
-            'targetEntity' => $config['class']['message'],
+            'targetEntity' => $config['message_class'],
             'mappedBy' => 'thread',
         ));
         // One-To-Many Unidirectional for Thread and ThreadMetadata
-        $collector->addAssociation($config['class']['thread'], 'mapOneToMany', array(
+        $collector->addAssociation($config['thread_class'], 'mapOneToMany', array(
             'fieldName' => 'metadata',
-            'targetEntity' => $config['class']['thread_metadata'],
+            'targetEntity' => $config['thread_metadata_class'],
             'cascade'       => array(
                 'all',
             ),
             'mappedBy' => 'thread',
         ));
         // One-To-Many Unidirectional for ThreadMetadata and Thread
-        $collector->addAssociation($config['class']['thread_metadata'], 'mapManyToOne', array(
+        $collector->addAssociation($config['thread_metadata_class'], 'mapManyToOne', array(
             'fieldName' => 'thread',
-            'targetEntity' => $config['class']['thread'],
+            'targetEntity' => $config['thread_class'],
             'inversedBy' => 'metadata',
         ));
         // One-To-Many Unidirectional for ThreadMetadata and User
-        $collector->addAssociation($config['class']['thread_metadata'], 'mapManyToOne', array(
+        $collector->addAssociation($config['thread_metadata_class'], 'mapManyToOne', array(
             'fieldName' => 'participant',
-            'targetEntity' => $config['class']['user'],
+            'targetEntity' => $config['user_class'],
         ));
     }
+
 }
