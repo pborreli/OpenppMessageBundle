@@ -19,6 +19,7 @@ class MessageAdmin extends AbstractAdmin
         $datagridMapper
             ->add('body')
             ->add('createdAt')
+            ->add('state')
             ->add('id')
         ;
     }
@@ -32,7 +33,7 @@ class MessageAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('body')
             ->add('createdAt')
-            ->add('approved')
+            ->add('state')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -50,7 +51,7 @@ class MessageAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('body')
-            ->add('approved', BooleanType::class)
+            ->add('state', BooleanType::class)
         ;
     }
 
@@ -63,7 +64,7 @@ class MessageAdmin extends AbstractAdmin
             ->add('id')
             ->add('body')
             ->add('createdAt')
-            ->add('approved')
+            ->add('state')
         ;
     }
 }

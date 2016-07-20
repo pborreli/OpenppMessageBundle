@@ -1,0 +1,22 @@
+{
+  "name": "openpp/message-bundle",
+  "type": "symfony-bundle",
+  "description": "Provides user-to-user messaging features for your Symfony2 application.",
+  "keywords": ["symfony", "message", "messaging", "openpp"],
+  "homepage": "https://github.com/webwarejp/OpenppMessageBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "yositani2002",
+      "email": "yositani2002@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/symfony": "~2.8",
+    "sonata-project/admin-bundle": "^3.0",
+    "friendsofsymfony/message-bundle": "^1.2"
+  },
+  "autoload": {
+    "psr-4": { "Openpp\\MessageBundle": "" }
+  }
+}
