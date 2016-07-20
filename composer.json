@@ -17,6 +17,6 @@
     "friendsofsymfony/message-bundle": "^1.2"
   },
   "autoload": {
-    "psr-4": { "Openpp\\MessageBundle": "" }
+    "psr-4": { "Openpp\\MessageBundle\\": "" }
   }
 }
