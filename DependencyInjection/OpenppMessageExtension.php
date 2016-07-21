@@ -17,7 +17,16 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
     public function prepend(ContainerBuilder $container)
     {
         $configs = $container->getExtensionConfig('fos_message');
-        $this->config = $this->processConfiguration(new FOSMessageConfiguration(), $configs);
+        if(isset($configs[0]) && $configs[0] == null)
+        {
+            $configs[0]= [
+                'db_driver' => 'orm',
+                'thread_class' => 'FOS\MessageBundle\Entity\Thread',
+                'message_class' => 'FOS\MessageBundle\Entity\Message'
+            ];
+            $this->config = $this->processConfiguration(new FOSMessageConfiguration(), $configs);
+            $container->prependExtensionConfig('fos_message',$configs[0]);
+        }
     }
 
     public function load(array $configs, ContainerBuilder $container)
@@ -26,9 +35,15 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
         $configs = $parameterBag->resolveValue($configs);
         $configs_openpp = $this->processConfiguration(new Configuration(), $configs);
 
-        $this->config['message_metadata_class'] = sprintf('%s%s', $this->config['message_class'], 'Metadata');
-        $this->config['thread_metadata_class'] = sprintf('%s%s', $this->config['thread_class'], 'Metadata');
-        $this->registerDoctrineMapping(array_merge($this->config, $configs_openpp));
+        if(isset($configs_openpp['user_class']) && $configs_openpp['user_class'] != null)
+        {
+            if(class_exists($this->config['message_class']) && class_exists($this->config['thread_class']))
+            {
+                $this->config['message_metadata_class'] = sprintf('%s%s', $this->config['message_class'], 'Metadata');
+                $this->config['thread_metadata_class'] = sprintf('%s%s', $this->config['thread_class'], 'Metadata');
+                $this->registerDoctrineMapping(array_merge($this->config, $configs_openpp));
+            }
+        }
     }
 
     /**

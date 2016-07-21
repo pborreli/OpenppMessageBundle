@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
         $node
             ->children()
                 ->scalarNode('monitoring_default')->defaultValue(true)->end()
-                ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('user_class')->end()
             ->end()
         ;
 
