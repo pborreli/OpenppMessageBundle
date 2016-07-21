@@ -24,9 +24,9 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
                 'thread_class' => 'FOS\MessageBundle\Entity\Thread',
                 'message_class' => 'FOS\MessageBundle\Entity\Message'
             ];
-            $this->config = $this->processConfiguration(new FOSMessageConfiguration(), $configs);
             $container->prependExtensionConfig('fos_message',$configs[0]);
         }
+        $this->config = $this->processConfiguration(new FOSMessageConfiguration(), $configs);
     }
 
     public function load(array $configs, ContainerBuilder $container)
@@ -34,7 +34,6 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
         $parameterBag = $container->getParameterBag();
         $configs = $parameterBag->resolveValue($configs);
         $configs_openpp = $this->processConfiguration(new Configuration(), $configs);
-
         if(isset($configs_openpp['user_class']) && $configs_openpp['user_class'] != null)
         {
             if(class_exists($this->config['message_class']) && class_exists($this->config['thread_class']))
