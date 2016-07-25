@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\FOS\MessageBundle\Admin;
+namespace Openpp\MessageBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -11,6 +11,8 @@ use Sonata\CoreBundle\Form\Type\BooleanType;
 
 class MessageAdmin extends AbstractAdmin
 {
+    public $baseRouteName = 'openpp_message';
+    public $baseRoutePattern = 'openpp_message';
     /**
      * @param DatagridMapper $datagridMapper
      */
