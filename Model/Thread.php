@@ -11,34 +11,47 @@ use FOS\MessageBundle\Entity\Thread as AbstractedThread;
 class Thread extends AbstractedThread
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @var \FOS\MessageBundle\Model\ParticipantInterface
      */
     protected $createdBy;
 
     /**
-     * @ORM\OneToMany(
-     *   targetEntity="Application\FOS\MessageBundle\Entity\Message",
-     *   mappedBy="thread"
-     * )
      * @var Message[]|\Doctrine\Common\Collections\Collection
      */
     protected $messages;
 
     /**
-     * @ORM\OneToMany(
-     *   targetEntity="Application\FOS\MessageBundle\Entity\ThreadMetadata",
-     *   mappedBy="thread",
-     *   cascade={"all"}
-     * )
      * @var ThreadMetadata[]|\Doctrine\Common\Collections\Collection
      */
     protected $metadata;
+
+    /**
+     * @see FOS\MessageBundle\Model\ThreadInterface::getLastMessage()
+     */
+    public function getLastMessage()
+    {
+        return $this->getMessages()->last();
+    }
+
+    /**
+     * @see FOS\MessageBundle\Model\ThreadInterface::getMessages()
+     */
+    public function getMessages()
+    {
+        if($this->messages->last()){
+            $filterd = $this->messages->filter(function($v){
+                if($v->getState() == 1)
+                {
+                    return true;
+                }
+            });
+            return $filterd;
+        }
+        return $this->messages;
+    }
 }

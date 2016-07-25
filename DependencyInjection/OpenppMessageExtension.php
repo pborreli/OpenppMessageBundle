@@ -5,6 +5,8 @@ use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Config\FileLocator;
 use FOS\MessageBundle\DependencyInjection\Configuration as FOSMessageConfiguration;
 
 class OpenppMessageExtension extends Extension implements PrependExtensionInterface
@@ -27,6 +29,7 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
             $container->prependExtensionConfig('fos_message',$configs[0]);
         }
         $this->config = $this->processConfiguration(new FOSMessageConfiguration(), $configs);
+        $container->setParameter('fos_message.provider', 'Openpp\MessageBundle\Provider\Provider');
     }
 
     public function load(array $configs, ContainerBuilder $container)
@@ -41,8 +44,17 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
                 $this->config['message_metadata_class'] = sprintf('%s%s', $this->config['message_class'], 'Metadata');
                 $this->config['thread_metadata_class'] = sprintf('%s%s', $this->config['thread_class'], 'Metadata');
                 $this->registerDoctrineMapping(array_merge($this->config, $configs_openpp));
+                $container->setParameter('openpp.message.config', $configs_openpp);
             }
         }
+
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+
+        $loader->load('config.xml');
+        $loader->load('admin.xml');
+        $container->setAlias('fos_message.provider', 'openpp_message.provider.default');
+        $container->setParameter('openpp.message.admin.message.class', 'Openpp\MessageBundle\Admin\MessageAdmin');
+        $container->setParameter('openpp.message.class.message.entity', 'Application\Openpp\MessageBundle\Entity\Message');
     }
 
     /**

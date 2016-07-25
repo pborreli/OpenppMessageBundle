@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="openpp.message.admin.groupname">sonata_comment</parameter>
+    </parameters>
+
+    <services>
+        <service id="openpp.message.admin.message" class="%openpp.message.admin.message.class%">
+            <tag name="sonata.admin" manager_type="orm" group="%openpp.message.admin.groupname%" label="message" show_in_menu="true" show_in_dashboard="false" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <argument />
+            <argument>%openpp.message.class.message.entity%</argument>
+            <argument />
+        </service>
+    </services>
+</container>

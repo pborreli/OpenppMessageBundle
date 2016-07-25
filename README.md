@@ -43,3 +43,10 @@ schema
     php app/console cache:clear
     php app/console doctrine:schema:update --dump-sql
     php app/console doctrine:schema:update --force
+
+routing
+--------
+
+    fos_message:
+        resource: "@FOSMessageBundle/Resources/config/routing.xml"
+        prefix: /message
