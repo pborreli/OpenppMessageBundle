@@ -48,5 +48,14 @@ routing
 --------
 
     fos_message:
-        resource: "@FOSMessageBundle/Resources/config/routing.xml"
+        resource: "@OpenppMessageBundle/Resources/config/routing.xml"
         prefix: /message
+
+sonata admin
+------------
+
+            openpp.message.admin.message:
+                label:            Message
+                icon:            '<i class="fa fa-weixin"></i>'
+                items:
+                    - openpp.message.admin.message

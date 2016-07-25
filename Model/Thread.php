@@ -4,6 +4,7 @@ namespace Openpp\MessageBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\MessageBundle\Entity\Thread as AbstractedThread;
+use FOS\MessageBundle\Model\ParticipantInterface;
 
 /**
  *
@@ -31,27 +32,35 @@ class Thread extends AbstractedThread
     protected $metadata;
 
     /**
-     * @see FOS\MessageBundle\Model\ThreadInterface::getLastMessage()
-     */
-    public function getLastMessage()
-    {
-        return $this->getMessages()->last();
-    }
-
-    /**
      * @see FOS\MessageBundle\Model\ThreadInterface::getMessages()
      */
     public function getMessages()
     {
-        if($this->messages->last()){
-            $filterd = $this->messages->filter(function($v){
-                if($v->getState() == 1)
-                {
-                    return true;
-                }
-            });
-            return $filterd;
-        }
+        return $this->messages;
+    }
+
+    /**
+     * 自分が送信したものはフィルタリングしない。
+     * 他人が送信したものは、監視承認状態(state: 1)のメッセージ以外、フィルタリングする。
+     *
+     * @param ParticipantInterface $sender
+     * @return \Doctrine\Common\Collections\Collection|Message[]
+     */
+    public function filterMessages(ParticipantInterface $sender)
+    {
+        $filterd = $this->messages->filter(function($message) use ($sender)
+        {
+            /* @var $message Message */
+            if($message->getSender() == $sender)
+            {
+                return true;
+            }
+            else if($message->getState() == 1)
+            {
+                return true;
+            }
+        });
+        $this->messages = $filterd;
         return $this->messages;
     }
 }
