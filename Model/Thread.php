@@ -55,7 +55,7 @@ class Thread extends AbstractedThread
             {
                 return true;
             }
-            else if($message->getState() == 1)
+            else if($message->getState() === Message::STATUS_VALID)
             {
                 return true;
             }

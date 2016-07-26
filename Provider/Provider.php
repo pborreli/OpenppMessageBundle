@@ -47,7 +47,7 @@ class Provider extends BaseProvider
 
         $threads = $this->threadManager->findParticipantInboxThreads($participant);
 
-        if($this->config['monitoring_default'])
+        if($this->config['monitoring_enable'])
         {
             $filterd = array();
             foreach($threads as $thread)
@@ -91,7 +91,7 @@ class Provider extends BaseProvider
         $thread->getMessages();
         $this->threadReader->markAsRead($thread);
 
-        if($this->config['monitoring_default'])
+        if($this->config['monitoring_enable'])
         {
             $thread->filterMessages($user);
         }

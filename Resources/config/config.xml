@@ -15,6 +15,25 @@
             <argument>%openpp.message.config%</argument>
         </service>
 
+        <service id="openpp_message.message_manager.default" class="Openpp\MessageBundle\EntityManager\MessageManager" public="false">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%fos_message.message_class%</argument>
+            <argument>%fos_message.message_meta_class%</argument>
+            <call method="setConfig">
+                <argument>%openpp.message.config%</argument>
+            </call>
+        </service>
+
+        <service id="openpp_message.thread_manager.default" class="Openpp\MessageBundle\EntityManager\ThreadManager" public="false">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%fos_message.thread_class%</argument>
+            <argument>%fos_message.thread_meta_class%</argument>
+            <argument type="service" id="openpp_message.message_manager.default" />
+            <call method="setConfig">
+                <argument>%openpp.message.config%</argument>
+            </call>
+        </service>
+
     </services>
 
 </container>

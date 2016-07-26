@@ -2,7 +2,6 @@
 namespace Openpp\MessageBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use FOS\MessageBundle\Entity\Message as AbstractedMessage;
 
 /**
@@ -11,7 +10,7 @@ use FOS\MessageBundle\Entity\Message as AbstractedMessage;
 class Message extends AbstractedMessage
 {
     /**
-     * Available comment status.
+     * Available message status.
      */
     const STATUS_VALID = 0;
     const STATUS_INVALID = 1;
