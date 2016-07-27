@@ -13,8 +13,8 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 
 class ThreadAdmin extends AbstractAdmin
 {
-    public $baseRouteName = 'openpp_message';
-    public $baseRoutePattern = 'openpp_message';
+    public $baseRouteName = 'admin_openpp_message_thread';
+    public $baseRoutePattern = 'openpp/message/thread';
     
     /**
      * @param DatagridMapper $datagridMapper
@@ -22,9 +22,9 @@ class ThreadAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('body')
+            //->add('body')
             ->add('createdAt')
-            ->add('state')
+            //->add('state')
             ->add('id')
         ;
     }
@@ -36,9 +36,10 @@ class ThreadAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('body')
+            ->add('subject')
             ->add('createdAt')
-            ->add('state')
+            ->add('isspam')
+            ->add('createdBy')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -55,8 +56,9 @@ class ThreadAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('body')
-            ->add('state', BooleanType::class)
+            ->add('subject')
+            //->add('body')
+            //->add('state', BooleanType::class)
         ;
     }
 
@@ -67,9 +69,9 @@ class ThreadAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('body')
+            //->add('body')
             ->add('createdAt')
-            ->add('state')
+            //->add('state')
         ;
     }
     
@@ -87,13 +89,13 @@ class ThreadAdmin extends AbstractAdmin
         $id = $admin->getRequest()->get('id');
     
         $menu->addChild(
-                $this->trans('openpp_message_admin_edit', array(), 'OpenppMessageBundle'),
+                $this->trans('admin_edit', array(), 'OpenppMessageBundle'),
                 array('uri' => $admin->generateUrl('edit', array('id' => $id)))
                 );
     
         $menu->addChild(
-                $this->trans('openpp_message_admin_view_messages', array(), 'OpenppMessageBundle'),
-                array('uri' => $admin->generateUrl('sonata.comment.admin.comment.list', array('id' => $id)))
+                $this->trans('admin_view_messages', array(), 'OpenppMessageBundle'),
+                array('uri' => $admin->generateUrl('openpp.message.admin.message.list', array('id' => $id)))
                 );
     }
 }

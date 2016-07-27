@@ -28,3 +28,14 @@ list.label_body:        content
 list.label_created_at:  created
 list.label_state:       state
 list.label__action:     action
+form.label_body:        content
+form.label_state:       state
+
+list.label_subject:     subject
+list.label_isspam:      is spam
+list.label_created_by:  created by
+
+form.label_subject:     タイトル
+
+admin_edit:             edit
+admin_view_messages:    Go to message list 

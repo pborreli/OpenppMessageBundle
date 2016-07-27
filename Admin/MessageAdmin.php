@@ -11,8 +11,8 @@ use Sonata\CoreBundle\Form\Type\BooleanType;
 
 class MessageAdmin extends AbstractAdmin
 {
-    public $baseRouteName = 'openpp_message';
-    public $baseRoutePattern = 'openpp_message';
+    public $baseRouteName = 'message';
+    public $baseRoutePattern = 'message';
     
     /**
      * @param DatagridMapper $datagridMapper
