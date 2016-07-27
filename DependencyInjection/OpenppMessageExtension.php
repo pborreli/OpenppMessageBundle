@@ -4,6 +4,7 @@ namespace Openpp\MessageBundle\DependencyInjection;
 use Sonata\EasyExtendsBundle\Mapper\DoctrineCollector;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
@@ -53,6 +54,8 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
         $loader->load('config.xml');
         $loader->load('admin.xml');
         $container->setAlias('fos_message.provider', 'openpp_message.provider.default');
+        $container->setAlias('fos_message.message_manager', 'openpp_message.message_manager.default');
+        $container->setAlias('fos_message.thread_manager', 'openpp_message.thread_manager.default');
         $container->setParameter('openpp.message.admin.message.class', 'Openpp\MessageBundle\Admin\MessageAdmin');
         $container->setParameter('openpp.message.class.message.entity', 'Application\Openpp\MessageBundle\Entity\Message');
     }

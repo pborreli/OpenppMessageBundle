@@ -5,6 +5,7 @@ namespace Openpp\MessageBundle\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\MessageBundle\Controller\MessageController as BaseMessageController;
+use FOS\MessageBundle\Model\ParticipantInterface;
 
 class MessageController extends BaseMessageController
 {
@@ -16,7 +17,12 @@ class MessageController extends BaseMessageController
     public function inboxAction()
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $threads = $this->getProvider()->getInboxThreadsFilterd($user);
+        if($user instanceof ParticipantInterface){
+            $threads = $this->getProvider()->getInboxThreadsFilterd($user);
+        }else{
+            $threads = $this->getProvider()->getInboxThreads();
+        }
+
 
         return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:inbox.html.twig', array(
             'threads' => $threads
@@ -47,7 +53,12 @@ class MessageController extends BaseMessageController
     public function threadAction($threadId)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $thread = $this->getProvider()->getThreadFilterd($threadId, $user);
+        if($user instanceof ParticipantInterface){
+            $thread = $this->getProvider()->getThreadFilterd($threadId, $user);
+        }else{
+            $thread = $this->getProvider()->getThread($threadId);
+        }
+
         $form = $this->container->get('fos_message.reply_form.factory')->create($thread);
         $formHandler = $this->container->get('fos_message.reply_form.handler');
 
