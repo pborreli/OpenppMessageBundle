@@ -56,6 +56,8 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
         $container->setAlias('fos_message.provider', 'openpp_message.provider.default');
         $container->setAlias('fos_message.message_manager', 'openpp_message.message_manager.default');
         $container->setAlias('fos_message.thread_manager', 'openpp_message.thread_manager.default');
+        $container->setParameter('openpp.message.admin.thread.class', 'Openpp\MessageBundle\Admin\ThreadAdmin');
+        $container->setParameter('openpp.message.class.thread.entity', 'Application\Openpp\MessageBundle\Entity\Thread');
         $container->setParameter('openpp.message.admin.message.class', 'Openpp\MessageBundle\Admin\MessageAdmin');
         $container->setParameter('openpp.message.class.message.entity', 'Application\Openpp\MessageBundle\Entity\Message');
     }
