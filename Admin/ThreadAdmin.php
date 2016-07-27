@@ -57,8 +57,7 @@ class ThreadAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('subject')
-            //->add('body')
-            //->add('state', BooleanType::class)
+            ->add('isspam', BooleanType::class)
         ;
     }
 
@@ -69,9 +68,10 @@ class ThreadAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            //->add('body')
+            ->add('subject')
             ->add('createdAt')
-            //->add('state')
+            ->add('isspam')
+            ->add('createdBy')
         ;
     }
     

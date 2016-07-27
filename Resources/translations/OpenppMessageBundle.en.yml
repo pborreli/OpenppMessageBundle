@@ -23,19 +23,20 @@ no_thread:              There is no thread to show
 delete:                 Delete
 undelete:               Undelete
 
-list.label_id:          id
-list.label_body:        content
-list.label_created_at:  created
-list.label_state:       state
-list.label__action:     action
-form.label_body:        content
-form.label_state:       state
+list.label_id:          ID
+list.label_body:        Content
+list.label_created_at:  Created
+list.label_state:       State
+list.label__action:     Action
+form.label_body:        Content
+form.label_state:       State
 
-list.label_subject:     subject
-list.label_isspam:      is spam
-list.label_created_by:  created by
+list.label_subject:     Subject
+list.label_isspam:      Is spam
+list.label_created_by:  Created by
 
-form.label_subject:     タイトル
+form.label_subject:     Subject
+form.label_isspam:      Is spam
 
-admin_edit:             edit
+admin_edit:             Edit
 admin_view_messages:    Go to message list 

@@ -36,6 +36,7 @@ list.label_isspam:      スパム判定
 list.label_created_by:  作成者
 
 form.label_subject:     タイトル
+form.label_isspam:      スパム判定
 
 admin_edit:             編集
 admin_view_messages:    このスレッドに投稿されたメッセージ一覧
