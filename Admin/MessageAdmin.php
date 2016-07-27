@@ -13,6 +13,7 @@ class MessageAdmin extends AbstractAdmin
 {
     public $baseRouteName = 'openpp_message';
     public $baseRoutePattern = 'openpp_message';
+    
     /**
      * @param DatagridMapper $datagridMapper
      */

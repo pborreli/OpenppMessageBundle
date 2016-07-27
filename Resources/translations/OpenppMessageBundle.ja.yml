@@ -1,0 +1,30 @@
+messenger:              メッセンジャー
+inbox:                  受信箱
+sent:                   送信済み
+deleted:                ゴミ箱
+send_new:               新規メッセージ作成
+search:                 検索
+threads_found:          %num% thread found with | %num% threads found with
+
+message_info:           By %sender%, on %date%
+reply:                  返信
+
+subject:                タイトル
+starter:                作成者
+startdate:              開始日
+messages:               メッセージ
+last_message:           最新メッセージ
+actions:                アクション
+new:                    New
+goto_last:              最新メッセージを見る
+on:                     On %date%
+by:                     By %sender%
+no_thread:              スレッドはありません
+delete:                 ゴミ箱へ
+undelete:               ゴミ箱から戻す
+
+list.label_id:          ID
+list.label_body:        本文
+list.label_created_at:  作成日
+list.label_state:       状態
+list.label__action:     アクション
