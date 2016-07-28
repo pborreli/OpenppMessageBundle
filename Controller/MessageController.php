@@ -25,21 +25,8 @@ class MessageController extends BaseMessageController
 
 
         return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:inbox.html.twig', array(
-            'threads' => $threads
-        ));
-    }
-
-    /**
-     * Displays the authenticated participant messages sent
-     *
-     * @return Response
-     */
-    public function sentAction()
-    {
-        $threads = $this->getProvider()->getSentThreads();
-
-        return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:sent.html.twig', array(
-            'threads' => $threads
+            'threads' => $threads,
+            'user' => $user
         ));
     }
 
@@ -64,13 +51,15 @@ class MessageController extends BaseMessageController
 
         if ($message = $formHandler->process($form)) {
             return new RedirectResponse($this->container->get('router')->generate('fos_message_thread_view', array(
-                'threadId' => $message->getThread()->getId()
+                'threadId' => $message->getThread()->getId(),
+                'user' => $user
             )));
         }
 
         return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:thread.html.twig', array(
             'form' => $form->createView(),
-            'thread' => $thread
+            'thread' => $thread,
+            'user' => $user
         ));
     }
 }
