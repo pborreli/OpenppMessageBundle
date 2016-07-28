@@ -54,6 +54,7 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
         $loader->load('config.xml');
         $loader->load('admin.xml');
         $loader->load('form.xml');
+        $loader->load('twig.xml');
         $container->setAlias('fos_message.provider', 'openpp_message.provider.default');
         $container->setAlias('fos_message.message_manager', 'openpp_message.message_manager.default');
         $container->setAlias('fos_message.thread_manager', 'openpp_message.thread_manager.default');
