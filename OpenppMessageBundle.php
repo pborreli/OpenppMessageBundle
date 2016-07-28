@@ -37,7 +37,7 @@ class OpenppMessageBundle extends Bundle
     public function registerFormMapping()
     {
         FormHelper::registerFormTypeMapping(array(
-                'openpp_message_status' => 'Sonata\CommentBundle\Form\Type\CommentStatusType',
+                'openpp_message_status' => 'Openpp\MessageBundle\Form\Type\MessageStatusType',
         ));
     }
 }

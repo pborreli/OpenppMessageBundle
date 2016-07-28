@@ -30,11 +30,13 @@ list.label_state:       状態
 list.label__action:     アクション
 form.label_body:        本文
 form.label_state:       状態
+valid:                  承認
+invalid:                非承認
+moderate:
 
 list.label_subject:     タイトル
 list.label_isspam:      スパム判定
 list.label_created_by:  作成者
-
 form.label_subject:     タイトル
 form.label_isspam:      スパム判定
 

@@ -9,7 +9,7 @@
     </parameters>
 
     <services>
-        <service id="openpp.message.form.message_status_type" class="Openpp\MessageBundle\Form\Type\CommentStatusType">
+        <service id="openpp.message.form.message_status_type" class="Openpp\MessageBundle\Form\Type\MessageStatusType">
             <argument>%openpp.message.class.message.entity%</argument>
             <argument>getStateList</argument>
             <argument>openpp_message_status</argument>
