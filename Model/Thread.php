@@ -38,6 +38,14 @@ class Thread extends AbstractedThread
     {
         return $this->messages;
     }
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Message thread #'.$this->getId();
+    }
 
     /**
      * 自分が送信したものはフィルタリングしない。

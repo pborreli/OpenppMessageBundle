@@ -39,4 +39,7 @@ form.label_subject:     Subject
 form.label_isspam:      Is spam
 
 admin_edit:             Edit
-admin_view_messages:    Go to message list 
+admin_view_messages:    Message list
+
+breadcrumb.link_thread_list:  Thread list
+breadcrumb.link_message_list: Message list

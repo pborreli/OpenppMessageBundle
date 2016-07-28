@@ -39,4 +39,7 @@ form.label_subject:     タイトル
 form.label_isspam:      スパム判定
 
 admin_edit:             編集
-admin_view_messages:    このスレッドに投稿されたメッセージ一覧
+admin_view_messages:    メッセージ一覧
+
+breadcrumb.link_thread_list:  スレッド一覧
+breadcrumb.link_message_list: メッセージ一覧

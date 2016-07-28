@@ -53,4 +53,12 @@ class Message extends AbstractedMessage
     {
         $this->state = $state;
     }
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Message message #'.$this->getId();
+    }
 }
