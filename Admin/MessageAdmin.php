@@ -36,7 +36,7 @@ class MessageAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('body')
             ->add('createdAt')
-            ->add('state')
+            ->add('state', 'string', array('template' => 'OpenppMessageBundle:MessageAdmin:list_status.html.twig'))
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -54,7 +54,7 @@ class MessageAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('body')
-            ->add('state', BooleanType::class)
+            ->add('state', 'openpp_message_status', array('translation_domain' => 'OpenppMessageBundle'))
         ;
     }
 

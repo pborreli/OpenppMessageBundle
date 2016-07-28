@@ -61,4 +61,30 @@ class Message extends AbstractedMessage
     {
         return 'Message message #'.$this->getId();
     }
+    
+    /**
+     * Returns comment state list.
+     *
+     * @return array
+     */
+    public static function getStateList()
+    {
+        return array(
+                self::STATUS_VALID => 'valid',
+                self::STATUS_INVALID => 'invalid',
+                self::STATUS_MODERATE => 'moderate',
+        );
+    }
+    
+    /**
+     * Returns comment state label.
+     *
+     * @return int|null
+     */
+    public function getStateLabel()
+    {
+        $list = self::getStateList();
+    
+        return isset($list[$this->getState()]) ? $list[$this->getState()] : null;
+    }
 }
