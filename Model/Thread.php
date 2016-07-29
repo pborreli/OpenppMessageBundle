@@ -1,10 +1,11 @@
 <?php
 namespace Openpp\MessageBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+//use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\Common\Collections\ArrayCollection;
 use FOS\MessageBundle\Entity\Thread as AbstractedThread;
 use FOS\MessageBundle\Model\ParticipantInterface;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  *
@@ -74,26 +75,14 @@ class Thread extends AbstractedThread
 
     /**
      * 自分が送信したものはフィルタリングしない。
-     * 他人が送信したものは、監視承認状態(state: 1)のメッセージ以外、フィルタリングする。
+     * 他人が送信したものは、監視承認状態(state: 0)のメッセージ以外、フィルタリングする。
      *
      * @param ParticipantInterface $sender
      * @return \Doctrine\Common\Collections\Collection|Message[]
      */
     public function filterMessages(ParticipantInterface $sender)
     {
-        $filterd = $this->messages->filter(function($message) use ($sender)
-        {
-            /* @var $message Message */
-            if($message->getSender() == $sender)
-            {
-                return true;
-            }
-            else if($message->getState() === Message::STATUS_VALID)
-            {
-                return true;
-            }
-        });
-        $this->messages = $filterd;
-        return $this->messages;
+        $criteria = Criteria::create()->where(Criteria::expr()->eq("sender", $sender))->orWhere(Criteria::expr()->eq('state', Message::STATUS_VALID));
+        return $this->messages->matching($criteria); 
     }
 }
