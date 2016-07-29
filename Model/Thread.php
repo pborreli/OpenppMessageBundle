@@ -49,7 +49,7 @@ class Thread extends AbstractedThread
     }
     
     /**
-     * Returns comment state list.
+     * Returns thread isspam list.
      *
      * @return array
      */
@@ -62,7 +62,7 @@ class Thread extends AbstractedThread
     }
     
     /**
-     * Returns comment state label.
+     * Returns thread isspam label.
      *
      * @return int|null
      */

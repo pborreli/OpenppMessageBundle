@@ -63,7 +63,7 @@ class Message extends AbstractedMessage
     }
     
     /**
-     * Returns comment state list.
+     * Returns message state list.
      *
      * @return array
      */
@@ -77,7 +77,7 @@ class Message extends AbstractedMessage
     }
     
     /**
-     * Returns comment state label.
+     * Returns message state label.
      *
      * @return int|null
      */
