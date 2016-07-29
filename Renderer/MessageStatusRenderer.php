@@ -28,11 +28,11 @@ class MessageStatusRenderer implements StatusClassRendererInterface
     {
         switch ($object->getState()) {
             case Message::STATUS_MODERATE:
-                return 'info';
+                return 'warning';
             case Message::STATUS_VALID:
                 return 'success';
             case Message::STATUS_INVALID:
-                return 'important';
+                return 'danger';
             default:
                 return $default;
         }
