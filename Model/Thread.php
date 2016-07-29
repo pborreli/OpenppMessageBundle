@@ -38,6 +38,39 @@ class Thread extends AbstractedThread
     {
         return $this->messages;
     }
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Message thread #'.$this->getId();
+    }
+    
+    /**
+     * Returns comment state list.
+     *
+     * @return array
+     */
+    public static function getIsSpamList()
+    {
+        return array(
+                true => 'yes',
+                false => 'no',
+        );
+    }
+    
+    /**
+     * Returns comment state label.
+     *
+     * @return int|null
+     */
+    public function getIsSpamLabel()
+    {
+        $list = self::getIsSpamList();
+    
+        return isset($list[$this->getIsSpam()]) ? $list[$this->getIsSpam()] : null;
+    }
 
     /**
      * 自分が送信したものはフィルタリングしない。

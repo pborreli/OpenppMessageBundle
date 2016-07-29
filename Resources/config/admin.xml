@@ -10,12 +10,28 @@
 
     <services>
         <service id="openpp.message.admin.message" class="%openpp.message.admin.message.class%">
-            <tag name="sonata.admin" manager_type="orm" group="%openpp.message.admin.groupname%" label="message" show_in_menu="true" show_in_dashboard="false" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <tag name="sonata.admin" manager_type="orm" group="%openpp.message.admin.groupname%" show_in_menu="false" show_in_dashboard="false" label_translator_strategy="sonata.admin.label.strategy.underscore" />
             <argument />
             <argument>%openpp.message.class.message.entity%</argument>
             <argument />
+            
             <call method="setTranslationDomain">
                 <argument>OpenppMessageBundle</argument>
+            </call>
+        </service>
+        
+        <service id="openpp.message.admin.thread" class="%openpp.message.admin.thread.class%">
+            <tag name="sonata.admin" manager_type="orm" group="%openpp.message.admin.groupname%" label="thread" label_catalogue="OpenppMessageBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <argument />
+            <argument>%openpp.message.class.thread.entity%</argument>
+            <argument />
+            
+            <call method="setTranslationDomain">
+                <argument>OpenppMessageBundle</argument>
+            </call>
+            
+            <call method="addChild">
+                <argument type="service" id="openpp.message.admin.message" />
             </call>
         </service>
     </services>

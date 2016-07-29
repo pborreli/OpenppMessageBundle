@@ -28,3 +28,22 @@ list.label_body:        本文
 list.label_created_at:  作成日
 list.label_state:       状態
 list.label__action:     アクション
+form.label_body:        本文
+form.label_state:       状態
+valid:                  掲載
+invalid:                非掲載
+moderate:               非掲載（保留）
+
+list.label_subject:     タイトル
+list.label_isspam:      スパムですか？
+list.label_created_by:  作成者
+form.label_subject:     タイトル
+form.label_isspam:      スパムですか？
+yes:                    はい
+no:                     いいえ
+
+admin_edit:             編集
+admin_view_messages:    メッセージ一覧
+
+breadcrumb.link_thread_list:  スレッド一覧
+breadcrumb.link_message_list: メッセージ一覧
