@@ -48,6 +48,10 @@ class OpenppMessageExtension extends Extension implements PrependExtensionInterf
                 $container->setParameter('openpp.message.config', $configs_openpp);
             }
         }
+        else
+        {
+            $container->setParameter('openpp.message.config', []);
+        }
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
