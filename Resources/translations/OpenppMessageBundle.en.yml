@@ -41,6 +41,10 @@ form.label_subject:     Subject
 form.label_isspam:      Is spam?
 yes:                    Yes
 no:                     No
+filter.label_id:        ID
+filter.label_created_at:  Created
+filter.label_body:      Content
+filter.label_state:     State
 
 admin_edit:             Edit
 admin_view_messages:    Message list

@@ -119,4 +119,5 @@ sonata admin
                 label:            Message
                 icon:            '<i class="fa fa-weixin"></i>'
                 items:
+                    - openpp.message.admin.thread
                     - openpp.message.admin.message

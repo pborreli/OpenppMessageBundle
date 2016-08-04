@@ -10,7 +10,7 @@
 
     <services>
         <service id="openpp.message.admin.message" class="%openpp.message.admin.message.class%">
-            <tag name="sonata.admin" manager_type="orm" group="%openpp.message.admin.groupname%" show_in_menu="false" show_in_dashboard="false" label_translator_strategy="sonata.admin.label.strategy.underscore" />
+            <tag name="sonata.admin" manager_type="orm" group="%openpp.message.admin.groupname%" label="message" label_catalogue="OpenppMessageBundle" label_translator_strategy="sonata.admin.label.strategy.underscore" />
             <argument />
             <argument>%openpp.message.class.message.entity%</argument>
             <argument />

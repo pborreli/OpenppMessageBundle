@@ -41,6 +41,10 @@ form.label_subject:     タイトル
 form.label_isspam:      スパムですか？
 yes:                    はい
 no:                     いいえ
+filter.label_id:        ID
+filter.label_created_at:  作成日
+filter.label_body:      本文
+filter.label_state:     状態
 
 admin_edit:             編集
 admin_view_messages:    メッセージ一覧
