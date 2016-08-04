@@ -6,6 +6,8 @@ install
 --------
 
     composer require openpp/message-bundle
+    composer require sonata-project/admin-bundle
+    composer require sonata-project/doctrine-orm-admin-bundle
     composer update
 
 config
@@ -63,21 +65,22 @@ User class
 -----------
 
 	<?php
-	
+
 	namespace Application\FOS\UserBundle\Entity;
 	
 	use FOS\UserBundle\Model\User as AbstractUser;
-	use Doctrine\ORM\Mapping as ORM;
 	
-	abstract class User extends AbstractUser
+	class User extends AbstractUser
 	{
 	}
+
 
 
 config
 ------
 
     fos_message:
+        db_driver:          orm
         thread_class:       Application\Openpp\MessageBundle\Entity\Thread
         message_class:      Application\Openpp\MessageBundle\Entity\Message
     openpp_message:

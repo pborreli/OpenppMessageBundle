@@ -82,7 +82,7 @@ class Thread extends AbstractedThread
      */
     public function filterMessages(ParticipantInterface $sender)
     {
-        $criteria = Criteria::create()->where(Criteria::expr()->eq("sender", $sender))->orWhere(Criteria::expr()->eq('state', Message::STATUS_VALID));
-        return $this->messages->matching($criteria); 
+        $criteria = Criteria::create()->where(Criteria::expr()->eq("sender", $sender->getId()))->orWhere(Criteria::expr()->eq('state', Message::STATUS_VALID));
+        $this->messages = $this->messages->matching($criteria); 
     }
 }
