@@ -53,7 +53,7 @@ class Provider extends BaseProvider
             foreach($threads as $thread)
             {
                 $filterdThread = $thread->filterMessages($user);
-                if($filterdThread->count())
+                if($filterdThread->getMessages()->count())
                 {
                     $filterd[] = $thread;
                 }
