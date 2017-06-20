@@ -1,5 +1,5 @@
 {
-	"name" : "openpp/message-bundle",
+	"name" : "pborreli/message-bundle",
 	"type" : "symfony-bundle",
 	"description" : "Provides user-to-user messaging features for your Symfony2 application.",
 	"keywords" : [
@@ -8,7 +8,7 @@
 		"messaging",
 		"openpp"
 	],
-	"homepage" : "https://github.com/webwarejp/OpenppMessageBundle",
+	"homepage" : "https://github.com/pborreli/OpenppMessageBundle",
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "yositani2002",
